@@ -4,7 +4,7 @@ import epicNFT from "../utils/MyEpicNFT.json";
 
 export default function useNFTContract() {
 	return useContract({
-		address: "0x37484D156420B221C367e77483e21161f9e831b8",
+		address: "0x86CCCaCEf374128232F2272D2987dee523bbD964",
 		abi: epicNFT.abi,
 	});
 }

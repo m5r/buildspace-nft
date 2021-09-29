@@ -1,7 +1,16 @@
 import { useState, useEffect, useCallback } from "react";
 
+const networks = {
+	1: "Mainnet",
+	42: "Kovan",
+	3: "Ropsten",
+	4: "Rinkeby",
+	5: "Goerli",
+} as const;
+
 export default function useWallet() {
 	const [currentAccount, setCurrentAccount] = useState("");
+	const [network, setNetwork] = useState<typeof networks[keyof typeof networks] | number | null>(null);
 
 	const checkIfWalletIsConnected = useCallback(async () => {
 		const { ethereum } = window;
@@ -35,8 +44,19 @@ export default function useWallet() {
 		checkIfWalletIsConnected();
 	}, []);
 
+	useEffect(() => {
+		const { ethereum } = window;
+		if (!ethereum) {
+			return;
+		}
+
+		const networkVersion = ethereum.networkVersion as number;
+		setNetwork(networks[networkVersion as keyof typeof networks] ?? networkVersion);
+	}, [currentAccount]);
+
 	return {
 		wallet: currentAccount,
 		connectWallet,
+		network,
 	}
 }
