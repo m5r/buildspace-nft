@@ -26,6 +26,7 @@ export default function useWallet() {
 		}
 
 		const accounts = await ethereum.request({ method: "eth_requestAccounts" });
+		console.log("accounts", accounts);
 
 		setCurrentAccount(accounts[0]);
 	}, []);

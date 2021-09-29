@@ -1,9 +1,12 @@
 import * as React from "react";
+import useNFT from "../hooks/use-nft";
 
 export default function MintButton() {
+	const { mint, isMinting } = useNFT();
+
 	return (
-		<button onClick={() => void 0} className="cta-button connect-wallet-button">
-			Mint NFT
+		<button disabled={isMinting} onClick={mint} className="cta-button connect-wallet-button">
+			{isMinting ? "Minting..." : "Mint NFT"}
 		</button>
 	);
 }
