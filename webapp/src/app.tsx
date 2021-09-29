@@ -1,6 +1,9 @@
 import * as React from "react";
 import twitterLogo from "./assets/twitter-logo.svg";
 import "./styles/app.css";
+import useWallet from "./hooks/use-wallet";
+import ConnectWalletButton from "./components/connect-wallet-button";
+import MintButton from "./components/mint-button";
 
 // Constants
 const TWITTER_HANDLE = "_buildspace";
@@ -9,12 +12,7 @@ const OPENSEA_LINK = "";
 const TOTAL_MINT_COUNT = 50;
 
 const App = () => {
-	// Render Methods
-	const renderNotConnectedContainer = () => (
-		<button className="cta-button connect-wallet-button">
-			Connect to Wallet
-		</button>
-	);
+	const { wallet } = useWallet();
 
 	return (
 		<div className="App">
@@ -24,7 +22,9 @@ const App = () => {
 					<p className="sub-text">
 						Each unique. Each beautiful. Discover your NFT today.
 					</p>
-					{renderNotConnectedContainer()}
+					{!wallet ? (
+						<ConnectWalletButton />
+					) : <MintButton />}
 				</div>
 				<div className="footer-container">
 					<img alt="Twitter Logo" className="twitter-logo" src={twitterLogo} />
